@@ -18,9 +18,9 @@ const categoryFallbacks: Record<string, string> = {
   sectionals: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/23_orig.png",
   beds: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/27_orig.png",
   "dining-room": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/26_orig.png",
-  recliners: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p3569_i1_w6591.jpeg?width=900",
-  "tv-stands": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p2633_i1_w3600.jpeg?width=900",
-  "bunk-beds": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/30_orig.png",
+  recliners: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p3572_i7_w6815.jpeg?width=640",
+  "tv-stands": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p2633_i1_w3241.jpeg?width=640",
+  "bunk-beds": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p2550_i13_w5400.jpeg?width=640",
 };
 
 export default function ProductCard({ product, index = 0, compact = false }: ProductCardProps) {
@@ -47,7 +47,7 @@ export default function ProductCard({ product, index = 0, compact = false }: Pro
           src={primaryImage}
           alt={product.name}
           fill
-          className="object-cover transition duration-700 group-hover:scale-105"
+          className="object-contain p-2 transition duration-700 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           onError={() => setPrimaryImage(fallbackImage)}
         />
@@ -56,7 +56,7 @@ export default function ProductCard({ product, index = 0, compact = false }: Pro
             src={secondaryImage}
             alt={`${product.name} alternate view`}
             fill
-            className="object-cover opacity-0 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
+            className="object-contain p-2 opacity-0 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             onError={() => setSecondaryImage(undefined)}
           />

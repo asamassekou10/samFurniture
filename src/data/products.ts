@@ -35,21 +35,21 @@ export const categories: Category[] = [
     name: "Recliners & Lift Chairs",
     slug: "recliners",
     description: "Comfortable recliners, power recliners, and lift chairs",
-    image: `${IMG_BASE}/s388224282203948371_p3572_i1_w6591.jpeg`,
+    image: `${IMG_BASE}/s388224282203948371_p3572_i7_w6815.jpeg?width=640`,
     productCount: 5,
   },
   {
     name: "TV Stands",
     slug: "tv-stands",
     description: "TV stands and fireplace entertainment centers",
-    image: `${IMG_BASE}/s388224282203948371_p2633_i1_w3600.jpeg`,
+    image: `${IMG_BASE}/s388224282203948371_p2633_i1_w3241.jpeg?width=640`,
     productCount: 5,
   },
   {
     name: "Bunk Beds",
     slug: "bunk-beds",
     description: "Space-saving bunk beds for kids and teens",
-    image: `${IMG_BASE}/s388224282203948371_p2550_i1_w2200.jpeg`,
+    image: `${IMG_BASE}/s388224282203948371_p2550_i13_w5400.jpeg?width=640`,
     productCount: 4,
   },
 ];
@@ -318,7 +318,7 @@ export const products: Product[] = [
     description:
       "The Cris Sand Reversible Sectional brings a warm, inviting tone to any room. Features a reversible chaise for flexible layout options.",
     shortDescription: "Warm sand-toned reversible linen sectional",
-    images: [`${IMG_BASE}/s388224282203948371_p2289_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p2289_i11_w1024.png?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     dimensions: '74"L x 59"D x 34.5"H',
@@ -337,7 +337,7 @@ export const products: Product[] = [
     description:
       "The Messi Grey Reversible Sectional offers generous seating with a modern low-profile design. The reversible chaise lets you customize the configuration.",
     shortDescription: "Modern grey reversible sectional with low-profile design",
-    images: [`${IMG_BASE}/s388224282203948371_p2050_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p2050_i7_w2047.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "Fabric",
@@ -355,7 +355,7 @@ export const products: Product[] = [
     description:
       "The Rocket White PU Reversible Sectional features sleek white PU upholstery for a clean, modern aesthetic. Easy to clean and maintain.",
     shortDescription: "Sleek white PU reversible sectional, easy to clean",
-    images: [`${IMG_BASE}/s388224282203948371_p3285_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3285_i12_w6607.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "PU (Polyurethane)",
@@ -374,7 +374,7 @@ export const products: Product[] = [
     description:
       "The Candy Black Sectional features built-in LED lighting for a stunning ambient effect. A showstopper piece that combines modern technology with luxurious comfort.",
     shortDescription: "Premium black sectional with built-in LED ambient lighting",
-    images: [`${IMG_BASE}/s388224282203948371_p3195_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3195_i3_w6604.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "PU / Fabric Blend",
@@ -394,7 +394,7 @@ export const products: Product[] = [
     description:
       "The Candy Charcoal Sectional brings together LED ambient lighting and rich charcoal upholstery for a statement-making living room centerpiece.",
     shortDescription: "Charcoal sectional with ambient LED lighting system",
-    images: [`${IMG_BASE}/s388224282203948371_p3196_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3196_i5_w6604.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "PU / Fabric Blend",
@@ -413,7 +413,7 @@ export const products: Product[] = [
     description:
       "The Ariel Black Sectional doubles as a guest bed with its convenient pull-out sleeper. Perfect for entertaining or overnight guests.",
     shortDescription: "Black sectional with pull-out sleeper bed",
-    images: [`${IMG_BASE}/s388224282203948371_p3023_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3023_i33_w6615.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "Fabric",
@@ -431,7 +431,7 @@ export const products: Product[] = [
     description:
       "The Sienna Boucle Sand Sectional + Ottoman Set features on-trend boucle fabric for a textured, luxurious look. Includes a matching ottoman.",
     shortDescription: "Trendy boucle sand sectional with matching ottoman",
-    images: [`${IMG_BASE}/s388224282203948371_p3311_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3311_i4_w6501.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "Boucle Fabric",
@@ -449,7 +449,7 @@ export const products: Product[] = [
     description:
       "The Kevin Sectional features a spacious design with a built-in pull-out bed. Ideal for multi-functional furniture needs.",
     shortDescription: "Spacious sectional with convenient pull-out bed",
-    images: [`${IMG_BASE}/s388224282203948371_p2389_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p2389_i6_w3500.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "Fabric",
@@ -468,7 +468,7 @@ export const products: Product[] = [
     description:
       "The Logan2 Charcoal Reversible Sectional features a modern design with reversible chaise. Deep charcoal upholstery adds a sophisticated touch.",
     shortDescription: "Modern charcoal reversible sectional with deep seating",
-    images: [`${IMG_BASE}/s388224282203948371_p3565_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3565_i4_w6615.jpeg?width=640`],
     category: "Sectionals",
     categorySlug: "sectionals",
     material: "Fabric",
@@ -715,7 +715,7 @@ export const products: Product[] = [
     description:
       "The Dior Grey Pub Table + 4 Chair Set features faux marble top with grey velvet chairs. Industrial wood base adds character.",
     shortDescription: "Faux marble pub table with 4 grey velvet chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p1419_i1_w2061.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p1419_i1_w2041.jpeg?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     dimensions: '42"L x 42"W x 36"H',
@@ -734,7 +734,7 @@ export const products: Product[] = [
     description:
       "The D106 Black Glass Dining Set features a sleek tempered glass tabletop with a modern black base and four matching chairs.",
     shortDescription: "Modern glass dining table with 4 black chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p3720_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3720_i8_w858.png?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Tempered Glass, Metal",
@@ -753,7 +753,7 @@ export const products: Product[] = [
     description:
       "The D201 Black Glass Dining Set seats six comfortably with a generous tempered glass tabletop. Perfect for family dinners.",
     shortDescription: "6-seat glass dining set with black chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p3769_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3769_i8_w1206.jpeg?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Tempered Glass, Metal",
@@ -772,7 +772,7 @@ export const products: Product[] = [
     description:
       "The Florida Black Dining Set includes a spacious table and six upholstered chairs. Bold black color adds drama and sophistication.",
     shortDescription: "Full dining set with table and 6 upholstered black chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p1420_i1_w2061.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p1420_i1_w4284.jpeg?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Wood, Velvet Upholstery",
@@ -790,7 +790,7 @@ export const products: Product[] = [
     description:
       "The Tahoe Grey Pub Table + 4 Chairs brings rustic charm to your dining area. Counter-height design creates a casual bistro atmosphere.",
     shortDescription: "Rustic grey counter-height pub table with 4 chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p612_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p612_i2_w1500.jpeg?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Wood",
@@ -808,7 +808,7 @@ export const products: Product[] = [
     description:
       "The D2400 Dining Table + 4 Chair Set offers classic dining style with modern construction. Comfortable seating and generously sized table.",
     shortDescription: "Classic dining table with 4 comfortable chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p3246_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3246_i15_w1024.png?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Wood",
@@ -826,7 +826,7 @@ export const products: Product[] = [
     description:
       "The 1220 Gray Faux Marble Dining Set features a stunning faux marble tabletop with six gray upholstered chairs. Luxury meets practicality.",
     shortDescription: "Faux marble dining table with 6 gray upholstered chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p1684_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p1684_i1_w1892.jpeg?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Faux Marble, Upholstered Chairs",
@@ -845,7 +845,7 @@ export const products: Product[] = [
     description:
       "The D400 Dining Table + 4 Chair Set provides an affordable yet stylish dining solution. Solid construction ensures years of family meals.",
     shortDescription: "Affordable stylish dining table with 4 chairs",
-    images: [`${IMG_BASE}/s388224282203948371_p3026_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3026_i12_w1024.png?width=640`],
     category: "Dining Room",
     categorySlug: "dining-room",
     material: "Wood",
@@ -865,7 +865,7 @@ export const products: Product[] = [
     description:
       "The TopGun2 Black Power Recliner is the ultimate relaxation chair. Features built-in Bluetooth speakers, LED lighting, and power recline.",
     shortDescription: "Power recliner with Bluetooth speaker and LED lights",
-    images: [`${IMG_BASE}/s388224282203948371_p3572_i1_w6591.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p3572_i7_w6815.jpeg?width=640`],
     category: "Recliners & Lift Chairs",
     categorySlug: "recliners",
     material: "PU / Fabric",
@@ -885,7 +885,7 @@ export const products: Product[] = [
     description:
       "The TopGun2 Dark Gray Power Recliner offers Bluetooth speakers and LED accent lighting. Smooth power recline for effortless comfort.",
     shortDescription: "Dark gray power recliner with Bluetooth and LED lights",
-    images: [`${IMG_BASE}/s388224282203948371_p3573_i1_w6591.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p3573_i11_w6576.jpeg?width=640`],
     category: "Recliners & Lift Chairs",
     categorySlug: "recliners",
     material: "PU / Fabric",
@@ -904,7 +904,7 @@ export const products: Product[] = [
     description:
       "The TopGun2 Ivory Power Recliner combines premium ivory upholstery with Bluetooth speakers and LED lighting.",
     shortDescription: "Ivory power recliner with Bluetooth and LED lights",
-    images: [`${IMG_BASE}/s388224282203948371_p3575_i1_w6591.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p3575_i15_w6667.jpeg?width=640`],
     category: "Recliners & Lift Chairs",
     categorySlug: "recliners",
     material: "PU / Fabric",
@@ -923,7 +923,7 @@ export const products: Product[] = [
     description:
       "The 9100 Grey Oversized Recliner is built for maximum comfort with an extra-wide seat and generous proportions.",
     shortDescription: "Extra-wide oversized recliner for maximum comfort",
-    images: [`${IMG_BASE}/s388224282203948371_p3610_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3610_i5_w3300.jpeg?width=640`],
     category: "Recliners & Lift Chairs",
     categorySlug: "recliners",
     material: "Fabric",
@@ -942,7 +942,7 @@ export const products: Product[] = [
     description:
       "The Ashley 1800512 Power Lift Recliner features heat and massage functions. The power lift mechanism assists with standing.",
     shortDescription: "Power lift recliner with heat and massage therapy",
-    images: [`${IMG_BASE}/s388224282203948371_p2994_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p2994_i1_w4440.jpeg?width=640`],
     category: "Recliners & Lift Chairs",
     categorySlug: "recliners",
     material: "Fabric",
@@ -962,7 +962,7 @@ export const products: Product[] = [
     description:
       'The W701-88 TV Stand accommodates TVs up to 80 inches with its generous 72-inch width. Ample storage and modern design.',
     shortDescription: '72" TV stand with ample storage for up to 80" TVs',
-    images: [`${IMG_BASE}/s388224282203948371_p2633_i1_w3600.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p2633_i1_w3241.jpeg?width=640`],
     category: "TV Stands",
     categorySlug: "tv-stands",
     dimensions: '72"L x 18"D x 28"H',
@@ -982,7 +982,7 @@ export const products: Product[] = [
     description:
       'The W701-88 TV Stand with Fireplace combines entertainment and ambiance. Built-in electric fireplace with realistic flame effects. Fits TVs up to 80".',
     shortDescription: '72" TV stand with electric fireplace for up to 80" TVs',
-    images: [`${IMG_BASE}/s388224282203948371_p2634_i1_w3600.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p2634_i1_w2977.jpeg?width=640`],
     category: "TV Stands",
     categorySlug: "tv-stands",
     dimensions: '72"L x 18"D x 28"H',
@@ -1002,7 +1002,7 @@ export const products: Product[] = [
     description:
       'The W3788-68 TV Stand offers 70 inches of surface space. Modern styling with practical storage solutions.',
     shortDescription: '70" modern TV stand with practical storage',
-    images: [`${IMG_BASE}/s388224282203948371_p3439_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3439_i1_w3200.jpeg?width=640`],
     category: "TV Stands",
     categorySlug: "tv-stands",
     dimensions: '70"L x 16"D x 26"H',
@@ -1021,7 +1021,7 @@ export const products: Product[] = [
     description:
       'The A87 White TV Stand with Fireplace brings warmth and style. Bright white finish and electric fireplace create a stunning focal point.',
     shortDescription: '71" white TV stand with electric fireplace insert',
-    images: [`${IMG_BASE}/s388224282203948371_p3097_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3097_i9_w1600.jpeg?width=640`],
     category: "TV Stands",
     categorySlug: "tv-stands",
     dimensions: '71"L x 16"D x 28"H',
@@ -1040,7 +1040,7 @@ export const products: Product[] = [
     description:
       'The W664-68 TV Stand provides an expansive 75 inches of space. Clean lines and modern hardware complement any decor.',
     shortDescription: '75" expansive TV stand with clean modern design',
-    images: [`${IMG_BASE}/s388224282203948371_p3558_i1_w1024.png`],
+    images: [`${IMG_BASE}/s388224282203948371_p3558_i1_w2400.jpeg?width=640`],
     category: "TV Stands",
     categorySlug: "tv-stands",
     dimensions: '75"L x 18"D x 28"H',
@@ -1062,7 +1062,7 @@ export const products: Product[] = [
     description:
       "The BB11 Twin/Twin Bunk Bed in White is perfect for shared kids' rooms. Solid construction with full-length guardrails and integrated ladder.",
     shortDescription: "Solid white twin/twin bunk bed with safety guardrails",
-    images: [`${IMG_BASE}/s388224282203948371_p2550_i1_w2200.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p2550_i13_w5400.jpeg?width=640`],
     category: "Bunk Beds",
     categorySlug: "bunk-beds",
     material: "Solid Wood",
@@ -1080,7 +1080,7 @@ export const products: Product[] = [
     description:
       "The BB20 Twin/Full Bunk Bed features a twin trundle for extra sleeping capacity. Rich espresso finish.",
     shortDescription: "Twin/full bunk bed with trundle in espresso finish",
-    images: [`${IMG_BASE}/s388224282203948371_p3704_i1_w2200.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p3704_i9_w5400.jpeg?width=640`],
     category: "Bunk Beds",
     categorySlug: "bunk-beds",
     material: "Solid Wood",
@@ -1100,7 +1100,7 @@ export const products: Product[] = [
     description:
       "The BB50 Full/Full Bunk Bed is the ultimate space saver. Features a twin trundle and staircase with built-in storage drawers.",
     shortDescription: "Full/full bunk with trundle and staircase storage drawers",
-    images: [`${IMG_BASE}/s388224282203948371_p2587_i1_w2200.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p2587_i17_w2560.jpeg?width=640`],
     category: "Bunk Beds",
     categorySlug: "bunk-beds",
     material: "Solid Wood",
@@ -1119,7 +1119,7 @@ export const products: Product[] = [
     description:
       "The BB30 Full/Full Bunk Bed with Trundle sleeps up to three. Full-over-full design gives everyone ample sleeping space.",
     shortDescription: "Full/full bunk bed with trundle, sleeps three",
-    images: [`${IMG_BASE}/s388224282203948371_p3725_i1_w2200.jpeg`],
+    images: [`${IMG_BASE}/s388224282203948371_p3725_i5_w5400.jpeg?width=640`],
     category: "Bunk Beds",
     categorySlug: "bunk-beds",
     material: "Solid Wood",
