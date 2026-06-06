@@ -1,17 +1,36 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types";
 import { useCart } from "@/context/CartContext";
+import { ArrowUpRight, ShoppingBag, Star } from "lucide-react";
 
 interface ProductCardProps {
   product: Product;
   index?: number;
+  compact?: boolean;
 }
 
-export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+const categoryFallbacks: Record<string, string> = {
+  "sofas-loveseats": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/24_orig.png",
+  sectionals: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/23_orig.png",
+  beds: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/27_orig.png",
+  "dining-room": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/26_orig.png",
+  recliners: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p3569_i1_w6591.jpeg?width=900",
+  "tv-stands": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p2633_i1_w3600.jpeg?width=900",
+  "bunk-beds": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/30_orig.png",
+};
+
+export default function ProductCard({ product, index = 0, compact = false }: ProductCardProps) {
   const { addItem } = useCart();
+  const fallbackImage = useMemo(
+    () => categoryFallbacks[product.categorySlug] ?? "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/11-10_orig.jpg",
+    [product.categorySlug]
+  );
+  const [primaryImage, setPrimaryImage] = useState(product.images[0] ?? fallbackImage);
+  const [secondaryImage, setSecondaryImage] = useState<string | undefined>(product.images[1]);
 
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -19,30 +38,44 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   return (
     <div
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 opacity-0 animate-fade-in-up"
+      className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl opacity-0 animate-fade-in-up"
       style={{ animationDelay: `${index * 0.1}s`, animationFillMode: "forwards" }}
     >
       {/* Image */}
-      <Link href={`/products/${product.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-surface">
+      <Link href={`/products/${product.slug}`} className={`relative block overflow-hidden bg-surface ${compact ? "aspect-[5/3]" : "aspect-[4/3]"}`}>
         <Image
-          src={product.images[0]}
+          src={primaryImage}
           alt={product.name}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700"
+          className="object-cover transition duration-700 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          onError={() => setPrimaryImage(fallbackImage)}
         />
+        {secondaryImage && secondaryImage !== primaryImage && (
+          <Image
+            src={secondaryImage}
+            alt={`${product.name} alternate view`}
+            fill
+            className="object-cover opacity-0 transition duration-700 group-hover:scale-105 group-hover:opacity-100"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            onError={() => setSecondaryImage(undefined)}
+          />
+        )}
         {/* Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           {product.isNew && (
-            <span className="px-3 py-1 bg-primary text-white text-xs font-bold rounded-full uppercase tracking-wider">
+            <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
               New
             </span>
           )}
           {discount > 0 && (
-            <span className="px-3 py-1 bg-danger text-white text-xs font-bold rounded-full">
+            <span className="rounded-full bg-danger px-3 py-1 text-xs font-bold text-white">
               -{discount}%
             </span>
           )}
+        </div>
+        <div className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-primary opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100">
+          <ArrowUpRight className="h-5 w-5" />
         </div>
         {!product.inStock && (
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
@@ -59,8 +92,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.preventDefault();
                 addItem(product);
               }}
-              className="w-full bg-accent hover:bg-accent-dark text-white py-2.5 rounded-xl font-semibold text-sm transition-colors shadow-lg"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent py-2.5 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-accent-dark"
             >
+              <ShoppingBag className="h-4 w-4" />
               Add to Cart
             </button>
           </div>
@@ -68,21 +102,34 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </Link>
 
       {/* Info */}
-      <div className="p-4">
-        <p className="text-xs text-accent font-semibold uppercase tracking-wider mb-1">
+      <div className={compact ? "p-4" : "p-5"}>
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-accent">
           {product.category}
         </p>
         <Link href={`/products/${product.slug}`}>
-          <h3 className="font-semibold text-primary group-hover:text-accent transition-colors line-clamp-2 min-h-[2.5rem]">
+          <h3 className="line-clamp-2 min-h-[2.5rem] font-semibold text-primary transition-colors group-hover:text-accent">
             {product.name}
           </h3>
         </Link>
-        <p className="text-text-light text-sm mt-1 line-clamp-1">{product.shortDescription}</p>
+        {!compact && <p className="mt-2 line-clamp-1 text-sm text-text-light">{product.shortDescription}</p>}
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {product.material && (
+            <span className="rounded-full bg-surface px-3 py-1 text-xs font-medium text-text-light">
+              {product.material}
+            </span>
+          )}
+          {product.color && (
+            <span className="rounded-full bg-[#edf5f0] px-3 py-1 text-xs font-medium text-[#1f5137]">
+              {product.color}
+            </span>
+          )}
+        </div>
 
         {/* Price & Rating */}
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-primary">
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <div className="min-w-0">
+            <span className="block text-lg font-bold text-primary">
               ${product.price.toLocaleString("en-US", { minimumFractionDigits: 2 })}
             </span>
             {product.originalPrice && (
@@ -91,10 +138,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-1">
-            <svg className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
+          <div className="flex shrink-0 items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-amber-700">
+            <Star className="h-4 w-4 fill-current" />
             <span className="text-xs text-text-light font-medium">{product.rating}</span>
           </div>
         </div>

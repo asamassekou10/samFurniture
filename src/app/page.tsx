@@ -1,148 +1,316 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { categories, getFeaturedProducts, getNewArrivals } from "@/data/products";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  BadgeCheck,
+  BedDouble,
+  ChevronRight,
+  Clock3,
+  HeartHandshake,
+  PackageCheck,
+  ShieldCheck,
+  Sofa,
+  Sparkles,
+  Truck,
+  Utensils,
+} from "lucide-react";
+import { categories, getFeaturedProducts, getNewArrivals, products } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
-import { useEffect, useState } from "react";
+
+const roomFilters = [
+  {
+    id: "living",
+    label: "Living",
+    icon: Sofa,
+    headline: "Conversation-ready living rooms",
+    copy: "Layer sofas, sectionals, TV stands, and accent comfort into a room that actually gets used.",
+    slugs: ["sofas-loveseats", "sectionals", "recliners", "tv-stands"],
+  },
+  {
+    id: "sleep",
+    label: "Sleep",
+    icon: BedDouble,
+    headline: "Bedrooms with storage and drama",
+    copy: "Start with a statement bed, then tune the room with practical pieces for nightly routines.",
+    slugs: ["beds", "bunk-beds"],
+  },
+  {
+    id: "dining",
+    label: "Dining",
+    icon: Utensils,
+    headline: "Dining spaces made for hosting",
+    copy: "Find tables and sets that balance daily meals, weekend guests, and easy clean-up.",
+    slugs: ["dining-room"],
+  },
+];
+
+const featureCards = [
+  { icon: BadgeCheck, title: "Curated Quality", desc: "Product picks are filtered for finish, comfort, and value." },
+  { icon: Truck, title: "Local Delivery", desc: "Delivery support for large pieces and full-room orders." },
+  { icon: ShieldCheck, title: "Warranty Backing", desc: "Manufacturer-backed protection on qualifying furniture." },
+  { icon: HeartHandshake, title: "Guided Buying", desc: "Get help matching dimensions, color, and room flow." },
+];
+
+const styleNotes = [
+  { label: "Modern LED", value: "Miami sets", tone: "bg-[#eef7ff] text-[#164e63]" },
+  { label: "Family Comfort", value: "Sectionals", tone: "bg-[#f1f8ec] text-[#365314]" },
+  { label: "Small Space", value: "Sleepers", tone: "bg-[#fff3e6] text-[#7c2d12]" },
+  { label: "Hosting", value: "Dining sets", tone: "bg-[#f5eefb] text-[#581c87]" },
+];
+
+const categoryVisuals: Record<string, string> = {
+  "sofas-loveseats": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/24_orig.png",
+  sectionals: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/23_orig.png",
+  beds: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/27_orig.png",
+  "dining-room": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/26_orig.png",
+  recliners: "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p3569_i1_w6591.jpeg?width=1200",
+  "tv-stands": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/s388224282203948371_p2633_i1_w3600.jpeg?width=1200",
+  "bunk-beds": "https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/30_orig.png",
+};
 
 export default function HomePage() {
   const featured = getFeaturedProducts();
   const newArrivals = getNewArrivals();
-  const [scrollY, setScrollY] = useState(0);
+  const [activeRoom, setActiveRoom] = useState(roomFilters[0]);
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const activeProducts = useMemo(
+    () =>
+      products
+        .filter((product) => activeRoom.slugs.includes(product.categorySlug))
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 4),
+    [activeRoom]
+  );
+
+  const activeCategories = categories.filter((category) => activeRoom.slugs.includes(category.slug));
+  const heroProduct = featured[0] ?? products[0];
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-[600px] overflow-hidden bg-primary">
-        {/* Background image with parallax */}
-        <div
-          className="absolute inset-0"
-          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-        >
-          <Image
-            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80"
-            alt="Luxury living room"
-            fill
-            className="object-cover opacity-40"
-            priority
-          />
+      <section className="relative isolate min-h-[calc(100vh-104px)] overflow-hidden bg-[#f6f2ea]">
+        <div className="absolute inset-0 grid lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="bg-[#1f2621]" />
+          <div className="relative min-h-[44vh] lg:min-h-0">
+            <Image
+              src="https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/11-10_orig.jpg"
+              alt="Happy Homes furniture showroom"
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 1024px) 100vw, 60vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1f2621] via-[#1f2621]/20 to-transparent lg:from-[#1f2621]/60" />
+          </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
 
-        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl">
-            <span className="inline-block px-4 py-1.5 bg-accent/20 text-accent rounded-full text-sm font-semibold mb-6 animate-fade-in-up">
-              Premium Home Furniture
-            </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight animate-fade-in-up animation-delay-100">
-              Design Your
-              <span className="text-accent block">Dream Home</span>
+        <div className="relative mx-auto grid min-h-[calc(100vh-104px)] max-w-7xl items-center gap-10 px-4 py-14 lg:grid-cols-[0.86fr_1.14fr] lg:py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl text-white"
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold backdrop-blur">
+              <Sparkles className="h-4 w-4 text-accent-light" />
+              Room-first furniture shopping
+            </div>
+            <h1 className="max-w-[11ch] text-5xl font-bold leading-[0.95] tracking-normal md:text-7xl">
+              Build the room before you buy.
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl mt-6 leading-relaxed animate-fade-in-up animation-delay-200 max-w-lg">
-              Discover handpicked furniture that transforms your space. Premium quality, stunning designs, unbeatable prices.
+            <p className="mt-6 max-w-xl text-lg leading-8 text-white/76">
+              Browse SAM Furniture by lifestyle, size, color, and value so every sofa, bed, and dining set feels easier to picture at home.
             </p>
-            <div className="flex flex-wrap gap-4 mt-8 animate-fade-in-up animation-delay-300">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/products"
-                className="px-8 py-4 bg-accent hover:bg-accent-dark text-white rounded-xl font-semibold text-lg transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-4 font-semibold text-white shadow-lg shadow-black/20 transition hover:bg-accent-dark hover:-translate-y-0.5"
               >
-                Shop Collection
+                Shop the collection
+                <ArrowRight className="h-5 w-5" />
               </Link>
               <Link
-                href="/categories/sofas-loveseats"
-                className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-xl font-semibold text-lg transition-all backdrop-blur-sm border border-white/20"
+                href="/products?sale=true"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/18"
               >
-                Browse Sofas
+                View current deals
               </Link>
             </div>
+          </motion.div>
 
-            {/* Stats */}
-            <div className="flex gap-8 mt-12 animate-fade-in-up animation-delay-400">
-              {[
-                { value: "500+", label: "Products" },
-                { value: "10K+", label: "Happy Customers" },
-                { value: "Free", label: "Shipping $2.5K+" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-2xl font-bold text-accent">{stat.value}</p>
-                  <p className="text-gray-400 text-sm">{stat.label}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="ml-auto w-full max-w-xl"
+          >
+            <div className="rounded-[2rem] border border-white/45 bg-white/86 p-4 shadow-2xl shadow-black/22 backdrop-blur-md">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-surface">
+                <Image
+                  src={categoryVisuals[heroProduct.categorySlug] ?? heroProduct.images[0]}
+                  alt={heroProduct.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                />
+                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary shadow-sm">
+                  Featured find
                 </div>
+                <div className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/92 p-4 shadow-xl backdrop-blur">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-accent">This week&apos;s room anchor</p>
+                  <h2 className="mt-1 text-xl font-bold text-primary">{heroProduct.name}</h2>
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                    <span className="text-2xl font-bold text-primary">${heroProduct.price.toLocaleString("en-US")}</span>
+                    <Link
+                      href={`/products/${heroProduct.slug}`}
+                      className="inline-flex h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-white transition hover:bg-primary-light"
+                    >
+                      Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {styleNotes.map((note) => (
+                  <div key={note.label} className={`rounded-2xl px-3 py-3 ${note.tone}`}>
+                    <p className="text-[11px] font-semibold uppercase tracking-wide opacity-70">{note.label}</p>
+                    <p className="mt-1 text-sm font-bold">{note.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="border-b border-gray-200 bg-white">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-5 lg:grid-cols-4">
+          {featureCards.map((item) => (
+            <div key={item.title} className="flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#edf5f0] text-[#1f5137]">
+                <item.icon className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-primary">{item.title}</p>
+                <p className="text-xs leading-5 text-text-light">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-[#fbfaf7] py-18">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="grid gap-8 lg:grid-cols-[0.55fr_1fr] lg:items-end">
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-accent">Interactive finder</span>
+              <h2 className="mt-2 text-3xl font-bold text-primary md:text-5xl">Shop by the way the room lives.</h2>
+              <p className="mt-4 leading-7 text-text-light">
+                Furniture shoppers need fast visual filtering. Pick a room mood and the page reshuffles categories and products around that intent.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {roomFilters.map((room) => (
+                <button
+                  key={room.id}
+                  onClick={() => setActiveRoom(room)}
+                  className={`rounded-2xl border p-4 text-left transition ${
+                    activeRoom.id === room.id
+                      ? "border-primary bg-primary text-white shadow-xl shadow-primary/15"
+                      : "border-gray-200 bg-white text-primary hover:-translate-y-1 hover:border-accent"
+                  }`}
+                >
+                  <room.icon className={`mb-8 h-6 w-6 ${activeRoom.id === room.id ? "text-accent-light" : "text-accent"}`} />
+                  <span className="text-lg font-bold">{room.label}</span>
+                </button>
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </section>
-
-      {/* Trust Bar */}
-      <section className="bg-surface border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { icon: "M5 13l4 4L19 7", title: "Premium Quality", desc: "Handpicked furniture" },
-              { icon: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4", title: "Free Shipping", desc: "Orders over $2,500" },
-              { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", title: "1-Year Warranty", desc: "Manufacturer backed" },
-              { icon: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z", title: "Expert Support", desc: "Dedicated assistance" },
-            ].map((item) => (
-              <div key={item.title} className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                  </svg>
+          <motion.div
+            key={activeRoom.id}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]"
+          >
+            <div className="overflow-hidden rounded-3xl bg-primary text-white shadow-xl shadow-primary/12">
+              <div className="grid min-h-full md:grid-cols-2">
+                <div className="p-7 md:p-8">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-accent-light">Selected mood</p>
+                  <h3 className="mt-3 text-3xl font-bold">{activeRoom.headline}</h3>
+                  <p className="mt-4 leading-7 text-white/72">{activeRoom.copy}</p>
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    {activeCategories.map((category) => (
+                      <Link
+                        key={category.slug}
+                        href={`/categories/${category.slug}`}
+                        className="inline-flex items-center gap-1 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold transition hover:bg-white/18"
+                      >
+                        {category.name}
+                        <ChevronRight className="h-4 w-4" />
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-sm text-primary">{item.title}</p>
-                  <p className="text-xs text-text-light">{item.desc}</p>
+                <div className="relative min-h-[320px]">
+                  <Image
+                    src={categoryVisuals[activeCategories[0]?.slug] ?? activeCategories[0]?.image ?? categories[0].image}
+                    alt={activeCategories[0]?.name ?? "Furniture room"}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 32vw"
+                  />
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {activeProducts.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} compact />
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Categories */}
       <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="text-accent font-semibold text-sm uppercase tracking-wider">Browse By</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mt-2">Shop Categories</h2>
-            <p className="text-text-light mt-3 max-w-lg mx-auto">
-              Find exactly what you need from our curated collection of home furniture
-            </p>
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-accent">Visual catalog</span>
+              <h2 className="mt-2 text-3xl font-bold text-primary md:text-4xl">Browse Categories</h2>
+            </div>
+            <Link href="/products" className="inline-flex items-center gap-2 font-semibold text-accent transition hover:text-accent-dark">
+              See every product
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map((cat, i) => (
               <Link
                 key={cat.slug}
                 href={`/categories/${cat.slug}`}
-                className="group relative aspect-[4/3] rounded-2xl overflow-hidden opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${i * 0.1}s`, animationFillMode: "forwards" }}
+                className={`group relative overflow-hidden rounded-3xl bg-surface ${
+                  i === 0 || i === 3 ? "lg:col-span-2" : ""
+                } aspect-[4/3]`}
               >
                 <Image
-                  src={cat.image}
+                  src={categoryVisuals[cat.slug] ?? cat.image}
                   alt={cat.name}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent group-hover:from-accent/80 transition-all duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="text-white font-bold text-lg">{cat.name}</h3>
-                  <p className="text-white/70 text-sm mt-0.5">{cat.productCount} items</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/12 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                  <p className="text-sm text-white/72">{cat.productCount} curated pieces</p>
+                  <h3 className="mt-1 text-2xl font-bold">{cat.name}</h3>
                 </div>
               </Link>
             ))}
@@ -150,26 +318,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
+      <section className="bg-surface py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <span className="text-accent font-semibold text-sm uppercase tracking-wider">Curated For You</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mt-2">Featured Products</h2>
+              <span className="text-sm font-semibold uppercase tracking-wider text-accent">Curated For You</span>
+              <h2 className="mt-2 text-3xl font-bold text-primary md:text-4xl">Featured Products</h2>
             </div>
-            <Link
-              href="/products"
-              className="text-accent hover:text-accent-dark font-semibold flex items-center gap-2 transition-colors group"
-            >
-              View All
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+            <Link href="/products" className="inline-flex items-center gap-2 font-semibold text-accent transition hover:text-accent-dark">
+              View all
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.slice(0, 8).map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
@@ -177,99 +339,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Banner */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative overflow-hidden bg-[#253329] py-20 text-white">
         <Image
-          src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80"
-          alt="Modern living room"
+          src="https://www.happyhomesindustries.com/uploads/4/0/5/2/40528873/happy-homes-horizontal-banner_orig.png"
+          alt="Happy Homes furniture banner"
           fill
-          className="object-cover"
+          className="object-cover opacity-35"
+          sizes="100vw"
         />
-        <div className="absolute inset-0 bg-primary/80" />
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-            Up to <span className="text-accent">40% Off</span> This Season
-          </h2>
-          <p className="text-gray-300 text-lg max-w-lg mx-auto mb-8">
-            Refresh your home with our biggest sale of the year. Limited time only.
-          </p>
-          <Link
-            href="/products?sale=true"
-            className="inline-block px-8 py-4 bg-accent hover:bg-accent-dark text-white rounded-xl font-semibold text-lg transition-all hover:shadow-lg hover:shadow-accent/25 hover:-translate-y-0.5"
-          >
-            Shop the Sale
-          </Link>
-        </div>
-      </section>
-
-      {/* New Arrivals */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
-            <div>
-              <span className="text-accent font-semibold text-sm uppercase tracking-wider">Just Landed</span>
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mt-2">New Arrivals</h2>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#253329] via-[#253329]/84 to-[#253329]/30" />
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-wider text-accent-light">Smarter sale discovery</p>
+            <h2 className="mt-3 text-4xl font-bold leading-tight md:text-6xl">Deals that still feel designed.</h2>
+            <p className="mt-5 max-w-xl leading-8 text-white/74">
+              Keep promotions visual and contextual: sale pieces, new arrivals, and best-rated staples are only one tap away.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/products?sale=true" className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-7 py-4 font-semibold text-white transition hover:bg-accent-dark">
+                Shop sale
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link href="/products?new=true" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur transition hover:bg-white/18">
+                New arrivals
+              </Link>
             </div>
-            <Link
-              href="/products?new=true"
-              className="text-accent hover:text-accent-dark font-semibold flex items-center gap-2 transition-colors group"
-            >
-              See All New
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {newArrivals.slice(0, 4).map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              { icon: Clock3, label: "Seasonal promos", value: "Up to 40% off" },
+              { icon: PackageCheck, label: "Ready to style", value: `${newArrivals.length}+ arrivals` },
+              { icon: Truck, label: "Large orders", value: "Delivery support" },
+            ].map((item) => (
+              <div key={item.label} className="rounded-3xl border border-white/12 bg-white/10 p-5 backdrop-blur">
+                <item.icon className="h-6 w-6 text-accent-light" />
+                <p className="mt-8 text-sm text-white/60">{item.label}</p>
+                <p className="mt-1 text-2xl font-bold">{item.value}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="text-accent font-semibold text-sm uppercase tracking-wider">What People Say</span>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mt-2">Customer Reviews</h2>
+      <section className="py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mb-10 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-wider text-accent">Just Landed</span>
+              <h2 className="mt-2 text-3xl font-bold text-primary md:text-4xl">New Arrivals</h2>
+            </div>
+            <Link href="/products?new=true" className="inline-flex items-center gap-2 font-semibold text-accent transition hover:text-accent-dark">
+              See all new
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "Sarah M.",
-                text: "Absolutely love my new sectional! The quality is amazing and the delivery was seamless. Will definitely be back for more.",
-                rating: 5,
-              },
-              {
-                name: "James R.",
-                text: "Best furniture shopping experience I've had. The prices are unbeatable for this level of quality. Our dining set is gorgeous.",
-                rating: 5,
-              },
-              {
-                name: "Maria L.",
-                text: "The bedroom set exceeded our expectations. Beautiful finish, solid construction, and the LED headboard is a showstopper!",
-                rating: 5,
-              },
-            ].map((review, i) => (
-              <div
-                key={i}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: `${i * 0.15}s`, animationFillMode: "forwards" }}
-              >
-                <div className="flex gap-1 mb-3">
-                  {Array.from({ length: review.rating }).map((_, j) => (
-                    <svg key={j} className="w-5 h-5 text-amber-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-text-light leading-relaxed mb-4">&ldquo;{review.text}&rdquo;</p>
-                <p className="font-semibold text-primary">{review.name}</p>
-              </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {newArrivals.slice(0, 4).map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
         </div>
